@@ -20,3 +20,34 @@ TEMPLATES = [
     },
 ]
 
+
+STATIC_URL = 'static/'
+
+
+MEDIA_URL='/media/'                                           <------------------+
+MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+Stap2: Go to the project/urls.py
+
+from django.contrib import admin                                      <------------------+
+from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+from django.contrib.auth.urls import views as auth_views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    
+    path('cards_app/',include('cards_app.urls')),
+    
+    path("accounts/",include("django.contrib.auth.urls")),
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)     # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)         <------------------+this line one contenct are commets you can uncomment , its ur choice
+
+
+
+
+
