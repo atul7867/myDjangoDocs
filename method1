@@ -1,0 +1,172 @@
+how to create first project with virtual Env.-----------
+Section A:
+
+Stap1: Create first folder
+
+Stap2: Open the folder , and type "cmd" on path field
+
+Stap3: Check django are installed or not in ur System or not- 
+>django-admin
+
+Stap4: Create VirtualEnv.
+>python -m venv env
+>env\Scripts\activate
+>pip install django
+
+Stap5: Create Project
+>django-admin startproject project_name
+>cd project_name
+
+Stap6: Create App
+>project_name>python manage.py startapp app_name
+
+Stap7: Run the project on live server
+>project_name>python manage.py runserver
+
+Section B:
+
+Stap1: use os
+          import os                      <-------------------+
+          from pathlib import Path
+
+Stap2: Open the setting.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+   
+    'app_name',                             <-------------------------+
+]
+
+
+Stap3:  add templates name, 
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['templates'],                                       <---------------------------------+
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+Stap4: add static file 
+first way-
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [                          <---------------------------+
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+
+
+Stap5: Go to the project/urls.py
+
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path("",include("app_name.urls"))                  <-------------------------+
+]
+
+
+Stap6: Go to the app/create one file with name of urls.py
+
+from django.contrib import admin
+from django.urls import path,include
+from .import views
+urlpatterns = [
+ #     path("app_name/",views.index,name="index")               <-------------------+or
+      path("",views.index,name="index")               <-------------------+or
+]
+
+
+Stap7: Go to the views.py
+
+from django.shortcuts import render,HttpResponse
+
+# Create your views here.
+def index(request):
+    # return HttpResponse("ehsop pro")                          <-------------------+or
+    return render(request,"index.html")                         <-------------------+or
+
+
+Stap8: Create one folder name "templates"(name should be same in setting.py/templates)
+
+Stap9: Create one file index.html(name should be same inside views.py,this html content are show on browser screen
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1>heading1</h1>                                          
+        
+        <script src="" async defer></script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Note: Django provides flexibility in organizing static files, and both methods you mentioned have their pros and cons. 
+
+1. Keeping Static Files Inside the App:
+myapp/
+    static/
+        myapp/
+            css/
+            js/
+            images/
+2. Keeping Static Files Outside the App (Centralized Approach):
+
+project_name/
+    static/
+        css/
+        js/
+        images/
+    myapp/
+    otherapp/
+
+
+Ultimately, the choice depends on your project's structure and requirements. For example, if you're working on a single-page application or a project
+with heavy frontend components, a centralized approach might be more convenient. On the other hand, for a project with multiple reusable apps,
+keeping static files within each app can simplify modular development.
+
+
+*/
+
+
+
+
+
+
+
+
