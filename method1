@@ -128,7 +128,7 @@ Stap9: Create one file index.html(name should be same inside views.py,this html 
 
 
 
-
+<-------------------end this series---------------->
 
 
 
@@ -159,6 +159,32 @@ project_name/
 Ultimately, the choice depends on your project's structure and requirements. For example, if you're working on a single-page application or a project
 with heavy frontend components, a centralized approach might be more convenient. On the other hand, for a project with multiple reusable apps,
 keeping static files within each app can simplify modular development.
+
+
+*/
+
+/*
+Stap5: Go to the project/urls.py
+
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path("app_name/",include("app_name.urls"))                  <-------------------------+
+]
+
+
+Stap6: Go to the app/create one file with name of urls.py
+
+from django.contrib import admin
+from django.urls import path,include
+from .import views
+urlpatterns = [
+ #     path("",views.index,name="index")               <-------------------+or
+            
+]
+
 
 
 */
